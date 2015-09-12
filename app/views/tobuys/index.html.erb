@@ -1,0 +1,41 @@
+<title>My shopping list</title>
+<div class="container">
+	<div class="span4">
+
+
+<h1>My shopping list</h1>
+<hr>
+<p>All my to-buys here</p>
+
+<br/>
+<br/>
+<%= form_tag("/tobuys/create", :method=> "post") do %>
+<%= text_field_tag(:tobuy_text) %>
+<%= submit_tag("Add item", :class =>"btn ") %>
+<% end %>
+
+
+<div class="well">
+
+<%= form_tag("/tobuys/complete", :method => "post") do %>
+<ul style="list-style-type:none;">
+
+<% @tobuy_items.each do |t| %>
+
+ <% if t.completed == true %>
+ <li style="color:grey;"> <%= check_box_tag "tobuys_checkbox[]",t.id %>
+ 	<strike><%= t.tobuy_item %></strike> 
+
+ </li>
+  <% else %>
+     <li> <%= check_box_tag "tobuys_checkbox[]",t.id %> <%= t.tobuy_item %>
+     </li>
+  <% end %>
+  <%end%>
+</ul>
+
+<%= submit_tag("Complete or delete item", :class=>"btn btn-success") %>
+<%end%>
+<br/>
+
+</div>
